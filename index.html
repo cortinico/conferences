@@ -23,25 +23,27 @@ var today = dateTimestamp();
     {% if conference.location %}
     &nbsp;<small>{{ conference.location }}</small>
     {% endif %}
+    <div class="d-flex flex-row bd-highlight mb-3">
     <script>
       {% if conference.cfp_start %}
       if (today >= dateTimestamp('{{ conference.cfp_start | date: "%Y-%m-%d" }}') && today <= dateTimestamp('{{ conference.cfp_end | date: "%Y-%m-%d" }}')) {
-        document.write('<a href="{% if conference.cfp_site %}{{ conference.cfp_site }}{% else %}{{ conference.website }}{% endif %}"><span class="label label-info">Call For Papers until {{ conference.cfp_end | date: "%Y-%m-%d" }}</span></a>');
+        document.write('<a href="{% if conference.cfp_site %}{{ conference.cfp_site }}{% else %}{{ conference.website }}{% endif %}"><span class="badge badge-info">Call For Papers until {{ conference.cfp_end | date: "%Y-%m-%d" }}</span></a>');
       }
       {% endif %}
       {% if conference.status %}
-        document.write('<span class="label label-danger">{{ conference.status }}</span>');
+        document.write('<span class="badge badge-danger">{{ conference.status }}</span>');
       {% endif %}
       {% if conference.online %}
-        document.write('<span class="label label-primary">Online event</span>');
+        document.write('<span class="badge badge-primary">Online event</span>');
       {% endif %}
       if (today >= dateTimestamp('{{ conference.date_start | date: "%Y-%m-%d" }}') && today <= dateTimestamp('{{ conference.date_end | date: "%Y-%m-%d" }}')) {
-        document.write('<span class="label label-success">Happening Now</span>');
+        document.write('<span class="badge badge-success">Happening Now</span>');
       }
       if (today > dateTimestamp('{{ conference.date_end | date: "%Y-%m-%d" }}')) {
         document.getElementById('{{ forloop.index }}').style.color="gray";
       }
     </script>
+    </div>
   </li>
   {% endif %}
 {% endfor %}
